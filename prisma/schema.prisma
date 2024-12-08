@@ -1,0 +1,62 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum Category {
+    Electronics
+    Fashion
+    Fitness
+    HomeKitchen
+    Books
+    ToysGames
+    BeautyPersonalCare
+    SportsOutdoors
+    Automotive
+    ToolsHomeImprovement
+}
+
+model User {
+    id            String    @id @default(uuid())
+    username      String    @unique
+    password      String
+    verified      Boolean   @default(false)
+    first_name    String?
+    last_name     String?
+    date_of_birth DateTime?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt()
+    OTP           OTP[]
+    Product       Product[]
+
+    @@index([id], map: "idx_id")
+    @@index([username], map: "idx_username")
+}
+
+model OTP {
+    id         String   @id @default(uuid())
+    value      String   @unique
+    username   String
+    expiryDate DateTime @default(now())
+    used       Boolean  @default(false)
+    user       User     @relation(fields: [username], references: [username])
+}
+
+model Product {
+    id              String    @id @default(uuid())
+    name            String
+    owner           String
+    price           Int
+    purchasing_date DateTime?
+    images          String[]
+    thumbnail       String
+    description     String
+    category        Category
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt()
+    user            User      @relation(fields: [owner], references: [username])
+}

@@ -1,12 +1,22 @@
 {
-  "name": "UdemyMobileBackend",
+  "name": "udemymobilebackend",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/cors": "^1.1.1",
+    "@elysiajs/jwt": "^1.1.1",
+    "@elysiajs/swagger": "1.1.1",
+    "@prisma/client": "^5.22.0",
+    "@types/nodemailer": "^6.4.17",
+    "@types/otp-generator": "^4.0.2",
+    "elysia": "latest",
+    "mailtrap": "^3.4.0",
+    "nodemailer": "^6.9.16",
+    "otp-generator": "^4.0.1",
+    "prisma": "^5.22.0"
   },
   "devDependencies": {
     "bun-types": "latest"
